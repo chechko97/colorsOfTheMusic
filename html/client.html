@@ -1,0 +1,29 @@
+<html>
+<head>
+  <link rel="stylesheet" href="css/client.css" />
+</head>
+<body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script>
+    const url = new URL(window.location.href);
+    const roomId = '/' + url.searchParams.get('roomId');
+    const seat = url.searchParams.get('seat');
+    var socket = io(roomId);
+    socket.emit('new-client', seat);
+    socket.on(seat, function(msg) {
+      $('body').css('background-color', msg);
+    });
+    socket.on('disconnect', function() {
+      $('#overlay').show();
+    });
+    socket.on('serverend', function() {
+      $('#overlay').show();
+    });
+  </script>
+  <a href="/" style="color: white; float: right; text-decoration: none; padding: 10px">Back to home</a>
+  <div id="overlay">
+    <span>Server has gone away. <a href="/">Go back to home</a></span>
+</div>
+</body>
+</html>

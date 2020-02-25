@@ -1,0 +1,54 @@
+<html>
+<head>
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script>
+    const url = new URL(window.location.href);
+    const roomId = '/' + url.searchParams.get('roomId');
+  </script>
+  <h1>Room Code: <script>document.write(url.searchParams.get('roomId'))</script></h1>
+  <div id="seats">
+    <script>
+      for(var i=1; i <= url.searchParams.get('seats'); i++) {
+        document.writeln('<button id="'+i+'" class="seat" disabled>'+i+'</button>');
+      }
+    </script>
+  </div>
+  <div id="colors">
+    <h3>Pick a color</h3>
+    <button id="green" class="color selected">green</button>
+    <button id="blue" class="color">blue</button>
+    <button id="red" class="color">red</button>
+    <button id="yellow" class="color">yellow</button>
+    <button id="cyan" class="color">cyan</button>
+    <button id="violet" class="color">violet</button>
+  </div>
+  <script>
+    var socket = io(roomId);
+    var currentColor = 'green';
+    $('#seats button').click(function() {
+        socket.emit('color', { seat: $(this).text(), color: currentColor });
+        $('#'+$(this).text()).css('background-color', currentColor);
+    });
+    $('#colors button').click(function() {
+        currentColor = $(this).text();
+        $('#colors button').removeClass('selected');
+        $(this).addClass('selected');
+    });
+    socket.on('enable-seat', function(msg) {
+      $('#'+msg).removeAttr('disabled');
+	  $('#'+msg).css('background-color', '#fff');
+    });
+    socket.on('disable-seat', function(msg) {
+      $('#'+msg).attr('disabled', true);
+      $('#'+msg).css('background-color', '#ccc');
+    });
+    window.onunload = function () {
+      socket.emit('exit');
+    };
+  </script>
+</body>
+</html>

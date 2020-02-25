@@ -1,0 +1,35 @@
+body {
+  background: url('../img/bg.jpg') 100% 100%;
+}
+.container {
+  width: 300px;
+  height: auto;
+  margin: 0 auto;
+}
+.container input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.container button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 24px;
+  margin-bottom: 20px;
+  background-color: cyan;
+  border: none;
+}
+h2 {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-size: 50px;
+  margin-top: 50px;
+}
+#invalidRoomOrSeatError, #invalidSeatsError {
+  color: red;
+  display: none;
+}

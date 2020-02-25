@@ -1,0 +1,58 @@
+body {
+  background: black;
+}
+h1 {
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  font-size: 50px;
+}
+#seats button {
+  padding: 20px;
+  font-size: 24px;
+  color: #000;
+  width: 80px;
+  border: none;
+  background: #fff;
+  margin: 2px;
+}
+#seats button:disabled {
+  background: #ccc;
+}
+h3 {
+  color: #fff;
+  margin-top: 50px;
+}
+#colors button {
+  padding: 20px;
+  width: 80px;
+  height: 80px;
+  border: 4px solid #000;
+}
+#colors button.selected {
+  border: 4px solid #fff;
+}
+#green {
+  color: green;
+  background-color: green;
+}
+#blue {
+  color: blue;
+  background-color: blue;
+}
+#red {
+  color: red;
+  background-color: red;
+}
+#yellow {
+  color: yellow;
+  background-color: yellow;
+}
+#cyan {
+  color: cyan;
+  background-color: cyan;
+}
+#violet {
+  color: violet;
+  background-color: violet;
+}

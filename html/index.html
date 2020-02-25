@@ -1,0 +1,45 @@
+<html>
+<head>
+  <link rel="stylesheet" href="css/index.css" />
+</head>
+<body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <div class="container">
+    <h2>Join a room</h2>
+    <input id="roomId" autocomplete="off" placeholder="room id" />
+    <input id="seat" autocomplete="off" placeholder="seat" />
+    <span id="invalidRoomOrSeatError">Invalid room or seat</span>
+    <button id="submit">Join</button>
+  </div>
+  <div class="container">
+    <h2>Create new</h2>
+    <input id="seats" autocomplete="off" placeholder="seats 1-100" />
+    <span id="invalidSeatsError">Invalid seats count</span>
+    <button id="create">Create new room</button>
+  </div>
+
+  <script>
+    const url = new URL(window.location.href);
+    const invalidRoom = url.searchParams.get('invalidRoom');
+    const invalidRoomOrSeat = url.searchParams.get('invalidRoomOrSeat');
+    if(invalidRoom) {
+      $('#invalidRoomError').show();
+    }
+    if(invalidRoomOrSeat) {
+      $('#invalidRoomOrSeatError').show();
+    }
+    $('#submit').click(function() {
+        $(location).attr('href', 'client?roomId=' + $('#roomId').val().toUpperCase() + '&seat=' + $('#seat').val());
+    });
+    $('#create').click(function() {
+      if ($('#seats').val() > 100 || $('#seats').val() < 1) {
+          $('#invalidSeatsError').show();
+      } else {
+        const roomId = Math.random().toString(36).substr(2, 5);
+        $(location).attr('href', 'admin?roomId=' + roomId.toUpperCase() + '&seats=' + $('#seats').val());
+      }
+    });
+  </script>
+</body>
+</html>
